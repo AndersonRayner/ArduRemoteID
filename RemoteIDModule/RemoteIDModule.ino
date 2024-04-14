@@ -196,6 +196,7 @@ static void set_data(Transport &t)
     const auto &system = t.get_system();
     const auto &self_id = t.get_self_id();
     const auto &location = t.get_location();
+    const auto &home_position = t.get_home_position();
 
     odid_initUasData(&UAS_data);
 
@@ -300,6 +301,15 @@ static void set_data(Transport &t)
         UAS_data.System.ClassEU = (ODID_class_EU_t)system.class_eu;
         UAS_data.System.OperatorAltitudeGeo = system.operator_altitude_geo;
         UAS_data.System.Timestamp = system.timestamp;
+        UAS_data.SystemValid = 1;
+    }
+
+    // Home position
+    if (home_position.time_usec != 0) {
+        UAS_data.System.OperatorLatitude = (float) home_position.latitude * 1.0e-7;
+        UAS_data.System.OperatorLongitude = (float) home_position.longitude * 1.0e-7;
+        UAS_data.System.OperatorAltitudeGeo = (float) home_position.altitude * 1.0e-3;
+        UAS_data.System.Timestamp = home_position.time_usec * 1.0e-6; // Current time since boot, need to use UTC time I think.
         UAS_data.SystemValid = 1;
     }
 

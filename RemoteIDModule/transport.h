@@ -39,6 +39,10 @@ public:
         return operator_id;
     }
 
+    const mavlink_home_position_t &get_home_position(void) const {
+        return home_position;
+    }
+
     uint32_t get_last_location_ms(void) const {
         return last_location_ms;
     }
@@ -67,6 +71,8 @@ protected:
     static uint32_t last_system_ms;
     static uint32_t last_system_timestamp;
     static float last_location_timestamp;
+    static uint64_t last_home_timestamp;
+    static uint32_t last_home_ms;
 
     static mavlink_open_drone_id_location_t location;
     static mavlink_open_drone_id_basic_id_t basic_id;
@@ -74,6 +80,7 @@ protected:
     static mavlink_open_drone_id_self_id_t self_id;
     static mavlink_open_drone_id_system_t system;
     static mavlink_open_drone_id_operator_id_t operator_id;
+    static mavlink_home_position_t home_position;
 
     void make_session_key(uint8_t key[8]) const;
 
