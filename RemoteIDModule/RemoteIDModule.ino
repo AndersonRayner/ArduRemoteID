@@ -305,11 +305,20 @@ static void set_data(Transport &t)
     }
 
     // Home position
-    if (home_position.time_usec != 0) {
-        UAS_data.System.OperatorLatitude = (float) home_position.latitude * 1.0e-7;
-        UAS_data.System.OperatorLongitude = (float) home_position.longitude * 1.0e-7;
-        UAS_data.System.OperatorAltitudeGeo = (float) home_position.altitude * 1.0e-3;
-        UAS_data.System.Timestamp = home_position.time_usec * 1.0e-6; // Current time since boot, need to use UTC time I think.
+    // if (home_position.time_usec != 0) {
+    //     UAS_data.System.OperatorLatitude = (float) home_position.latitude * 1.0e-7;
+    //     UAS_data.System.OperatorLongitude = (float) home_position.longitude * 1.0e-7;
+    //     UAS_data.System.OperatorAltitudeGeo = (float) home_position.altitude * 1.0e-3;
+    //     UAS_data.System.Timestamp = home_position.time_usec * 1.0e-6; // Current time since boot, need to use UTC time I think.
+    //     UAS_data.SystemValid = 1;
+    // }
+
+    // Home position (parameters)
+    if (location.timestamp != 0) {
+        UAS_data.System.OperatorLatitude =  g.home_lat;
+        UAS_data.System.OperatorLongitude = g.home_lon;
+        UAS_data.System.OperatorAltitudeGeo = g.home_alt;
+        UAS_data.System.Timestamp = location.timestamp;
         UAS_data.SystemValid = 1;
     }
 

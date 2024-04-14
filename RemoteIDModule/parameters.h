@@ -29,6 +29,9 @@ public:
     float bt4_power;
     float bt5_rate;
     float bt5_power;
+    float home_lat;
+    float home_lon;
+    float home_alt;
     uint8_t done_init;
     uint8_t webserver_enable;
     uint8_t mavlink_sysid;
