@@ -288,21 +288,21 @@ static void set_data(Transport &t)
     }
 
     // System
-    if (system.timestamp != 0) {
-        UAS_data.System.OperatorLocationType = (ODID_operator_location_type_t)system.operator_location_type;
-        UAS_data.System.ClassificationType = (ODID_classification_type_t)system.classification_type;
-        UAS_data.System.OperatorLatitude = system.operator_latitude * 1.0e-7;
-        UAS_data.System.OperatorLongitude = system.operator_longitude * 1.0e-7;
-        UAS_data.System.AreaCount = system.area_count;
-        UAS_data.System.AreaRadius = system.area_radius;
-        UAS_data.System.AreaCeiling = system.area_ceiling;
-        UAS_data.System.AreaFloor = system.area_floor;
-        UAS_data.System.CategoryEU = (ODID_category_EU_t)system.category_eu;
-        UAS_data.System.ClassEU = (ODID_class_EU_t)system.class_eu;
-        UAS_data.System.OperatorAltitudeGeo = system.operator_altitude_geo;
-        UAS_data.System.Timestamp = system.timestamp;
-        UAS_data.SystemValid = 1;
-    }
+    // if (system.timestamp != 0) {
+    //     UAS_data.System.OperatorLocationType = (ODID_operator_location_type_t)system.operator_location_type;
+    //     UAS_data.System.ClassificationType = (ODID_classification_type_t)system.classification_type;
+    //     UAS_data.System.OperatorLatitude = system.operator_latitude * 1.0e-7;
+    //     UAS_data.System.OperatorLongitude = system.operator_longitude * 1.0e-7;
+    //     UAS_data.System.AreaCount = system.area_count;
+    //     UAS_data.System.AreaRadius = system.area_radius;
+    //     UAS_data.System.AreaCeiling = system.area_ceiling;
+    //     UAS_data.System.AreaFloor = system.area_floor;
+    //     UAS_data.System.CategoryEU = (ODID_category_EU_t)system.category_eu;
+    //     UAS_data.System.ClassEU = (ODID_class_EU_t)system.class_eu;
+    //     UAS_data.System.OperatorAltitudeGeo = system.operator_altitude_geo;
+    //     UAS_data.System.Timestamp = system.timestamp;
+    //     UAS_data.SystemValid = 1;
+    // }
 
     // Home position
     // if (home_position.time_usec != 0) {
@@ -315,10 +315,19 @@ static void set_data(Transport &t)
 
     // Home position (parameters)
     if (location.timestamp != 0) {
-        UAS_data.System.OperatorLatitude =  g.home_lat;
+
+        UAS_data.System.OperatorLocationType = ODID_operator_location_type::ODID_OPERATOR_LOCATION_TYPE_FIXED;
+        UAS_data.System.ClassificationType = ODID_classification_type::ODID_CLASSIFICATION_TYPE_UNDECLARED;
+        UAS_data.System.OperatorLatitude = g.home_lat;
         UAS_data.System.OperatorLongitude = g.home_lon;
+        UAS_data.System.AreaCount = 1;//system.area_count;
+        UAS_data.System.AreaRadius = 0;//system.area_radius;
+        UAS_data.System.AreaCeiling = -1000.0f;//system.area_ceiling;
+        UAS_data.System.AreaFloor = -1000.0f;//system.area_floor;
+        UAS_data.System.CategoryEU = ODID_category_EU::ODID_CATEGORY_EU_UNDECLARED;
+        UAS_data.System.ClassEU = ODID_class_EU::ODID_CLASS_EU_UNDECLARED;
         UAS_data.System.OperatorAltitudeGeo = g.home_alt;
-        UAS_data.System.Timestamp = location.timestamp;
+        UAS_data.System.Timestamp = 0;//home_position.time_usec*1e-6; // [ us ] -> [ s ] might also be time since boot
         UAS_data.SystemValid = 1;
     }
 

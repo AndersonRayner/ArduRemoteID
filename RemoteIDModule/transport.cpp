@@ -77,9 +77,9 @@ uint8_t Transport::arm_status_check(const char *&reason)
         ret += "LOC ";
     }
 
-    if (system.operator_latitude == 0 && system.operator_longitude == 0) {
-        ret += "OP_LOC ";
-    }
+    // if (system.operator_latitude == 0 && system.operator_longitude == 0) {
+    //     ret += "OP_LOC ";
+    // }
 
     if (ret.length() == 0 && reason == nullptr) {
         status = MAV_ODID_ARM_STATUS_GOOD_TO_ARM;
