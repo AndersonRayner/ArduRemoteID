@@ -155,6 +155,21 @@ void MAVLinkSerial::process_packet(mavlink_status_t &status, mavlink_message_t &
         last_location_ms = now_ms;
         break;
     }
+    case MAVLINK_MSG_ID_HOME_POSITION: {
+        mavlink_msg_home_position_decode(&msg, &home);
+        if (g.options & OPTIONS_PRINT_RID_MAVLINK) {
+            Serial.printf("MAVLink: got Home Location\n");
+        }
+        if (last_home_timestamp != home.time_usec) {
+            //only update the timestamp if we receive information with a different timestamp
+            last_home_ms = millis()/1000;
+            last_home_timestamp = home.time_usec;
+
+            // Copy over home location into the OID location struct
+        }
+        last_home_ms = now_ms;
+        break;
+    }
     case MAVLINK_MSG_ID_OPEN_DRONE_ID_BASIC_ID: {
         mavlink_open_drone_id_basic_id_t basic_id_tmp;
         if (g.options & OPTIONS_PRINT_RID_MAVLINK) {

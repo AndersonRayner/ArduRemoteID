@@ -4,3 +4,6 @@ git-version.h
 *.elf
 *.log
 romfs_files.h
+**/build-*
+*.tar.gz
+/bin
